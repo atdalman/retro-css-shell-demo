@@ -1,5 +1,6 @@
 import './src/styles.scss';
 import {terminal} from './src/terminal.js';
+import './src/generator.js';
 
 /**
  * Copyright (c) 2011-2018, Anders Evenrud <andersevenrud@gmail.com>
