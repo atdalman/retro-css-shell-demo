@@ -1,3 +1,5 @@
 node_modules
 *.tmp
 *.swp
+dist
+package-lock.json

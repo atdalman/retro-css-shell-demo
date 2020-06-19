@@ -1,60 +1,25 @@
-/*!
- * AnderShell - Just a small CSS demo
- *
- * Copyright (c) 2011-2018, Anders Evenrud <andersevenrud@gmail.com>
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 import './src/styles.scss';
 import {terminal} from './src/terminal.js';
 
 // Banner text
 const banner = `
-Initializing AnderShell 3000 v0.1
-Copyright (c) 2014 Anders Evenrud <andersevenrud@gmail.com>
-
 .............................................................................
 
-@@@  @@@  @@@  @@@@@@@@  @@@        @@@@@@@   @@@@@@   @@@@@@@@@@   @@@@@@@@
-@@@  @@@  @@@  @@@@@@@@  @@@       @@@@@@@@  @@@@@@@@  @@@@@@@@@@@  @@@@@@@@
-@@!  @@!  @@!  @@!       @@!       !@@       @@!  @@@  @@! @@! @@!  @@!     
-!@!  !@!  !@!  !@!       !@!       !@!       !@!  @!@  !@! !@! !@!  !@!     
-@!!  !!@  @!@  @!!!:!    @!!       !@!       @!@  !@!  @!! !!@ @!@  @!!!:!  
-!@!  !!!  !@!  !!!!!:    !!!       !!!       !@!  !!!  !@!   ! !@!  !!!!!:  
-!!:  !!:  !!:  !!:       !!:       :!!       !!:  !!!  !!:     !!:  !!:     
-:!:  :!:  :!:  :!:        :!:      :!:       :!:  !:!  :!:     :!:  :!:     
- :::: :: :::    :: ::::   :: ::::   ::: :::  ::::: ::  :::     ::    :: ::::
-  :: :  : :    : :: ::   : :: : :   :: :: :   : :  :    :      :    : :: :: 
-
------------------------------------------------------------------------------
-All graphics are created using CSS, no static files or images
------------------------------------------------------------------------------
-
-
-
-Type 'help for a list of available commands.
-
-
-
+'||''|.                    '||      '||          
+ ||   ||    ...   ... ...   || ...   ||    ....  
+ ||    || .|  '|.  ||  ||   ||'  ||  ||  .|...|| 
+ ||    || ||   ||  ||  ||   ||    |  ||  ||      
+.||...|'   '|..|'  '|..'|.  '|...'  .||.  '|...' 
+                                                 
+                                                 
+'||'  '||'         '||   ||                      
+ ||    ||    ....   ||  ...  ... ...             
+ ||''''||  .|...||  ||   ||   '|..'              
+ ||    ||  ||       ||   ||    .|.               
+.||.  .||.  '|...' .||. .||. .|  ||.             
+                                                 
+                                                 
+NPC generator and lookup tool for the TTRPG, Mothership.  Type 'help' to view menu.
 `;
 
 // Help text
@@ -62,20 +27,24 @@ const helpText = `
 Available commands:
 
 help - This output
+mon - Generates a non-human, non-android species
+mon <#> - Recalls a previously generated non-human, non-android species
+hum - Generates a human/android npc
+hum <#> - Recalls a previously generated human/android npc
 contact - Prints contact information
-contact <key> - Opens up relevant contact link
 clear - Clears the display
-ls - Lists files
-pwd - Lists current directory
-cd <dir> - Enters directory
-cat <filename> - Lists file contents
 `;
+
+const testMon = {
+  size: 'large',
+  fangs: 'sharp',
+  shirt: 'pressed'
+};
 
 // Contact texts
 const contactInfo = {
-  email: 'andersevenrud@gmail.com',
-  twitter: 'https://twitter.com/andersevenrud',
-  github: 'https://github.com/andersevenrud'
+  email: 'atdalman@gmail.com',
+  github: 'https://github.com/atdalman'
 };
 
 const contactList = Object.keys(contactInfo)
@@ -83,12 +52,9 @@ const contactList = Object.keys(contactInfo)
   .join('\n');
 
 const contactText = `
-Created by Anders Evenrud
+Created by Aaron Dalman
 
-${contactList}
-
-Use ex. 'contact twitter' to open the links.
-`;
+${contactList}`;
 
 const openContact = key => window.open(key === 'email'
   ? `mailto:${contactInfo[key]}`
@@ -106,7 +72,7 @@ const browser = (function() {
     location: '/',
     filename: 'AUTHOR',
     type: 'file',
-    content: 'Anders Evenrud <andersevenrud@gmail.com>'
+    content: 'Aaron Dalman <atdalman@gmail.com>'
   }];
 
   const fix = str => str.trim().replace(/\/+/g, '/') || '/';
@@ -177,6 +143,8 @@ const load = () => {
     banner,
     commands: {
       help: () => helpText,
+      //mon: () => genMonster(),
+      //hum: () => genHuman(),
       cwd: () => browser.cwd(),
       cd: dir => browser.cd(dir),
       ls: () => browser.ls(),
@@ -189,7 +157,9 @@ const load = () => {
         }
 
         return contactText;
-      }
+      },
+      mon: () => testMon
+      
     }
   });
 };
