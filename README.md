@@ -1,16 +1,6 @@
-# AnderShell 3000
+# Double Helix : NPC Generator for Mothership
 
-A retro-looking shell using CSS and JavaScript.
-
-Somewhat inspired by PipBoy and old-school UNIX terminals.
-
-![Screenshot](https://raw.githubusercontent.com/andersevenrud/retro-css-shell-demo/master/screenshot.png)
-
-# Demo
-
-[See it in action here](https://crt.no/) ([old version](http://andersevenrud.github.io/shell/))
-
-*Please note that this demo is currently outdated and will be updated asap*
+A retro-looking shell using CSS and JavaScript, for sci-fi ttrpg purposes.
 
 # Running
 
